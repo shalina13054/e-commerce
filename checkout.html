@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout</title>
+</head>
+<body>
+  <h1>Checkout</h1>
+  <form id="checkoutForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" required><br><br>
+
+    <button type="submit">Submit Order</button>
+  </form>
+
+  <script>
+    document.getElementById("checkoutForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      // Lead form submission
+      dataLayer.push({
+        event: "generate_lead",
+        user: {
+          name: document.getElementById("name").value,
+          email: document.getElementById("email").value
+        }
+      });
+
+      // Purchase event
+      dataLayer.push({
+        event: "purchase",
+        ecommerce: {
+          transaction_id: "T12345",
+          value: 49.99,
+          currency: "USD",
+          items: [{
+            item_name: "Example Product",
+            price: 49.99,
+            quantity: 1
+          }]
+        }
+      });
+
+      window.location.href = "thankyou.html";
+    });
+
+    // Page view
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({ event: "page_view", page: "checkout" });
+  </script>
+</body>
+</html>
