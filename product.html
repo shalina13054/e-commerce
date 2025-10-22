@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Page</title>
+</head>
+<body>
+  <h1>Product Details</h1>
+  <p>Product Name: Example Product</p>
+  <p>Price: $49.99</p>
+  <button id="addToCart">Add to Cart</button><br><br>
+
+  <a href="cart.html">Go to Cart</a>
+
+  <script>
+    document.getElementById("addToCart").addEventListener("click", function() {
+      dataLayer.push({
+        event: "add_to_cart",
+        ecommerce: {
+          items: [{
+            item_name: "Example Product",
+            price: 49.99,
+            quantity: 1
+          }]
+        }
+      });
+      alert("Added to cart!");
+    });
+
+    // Page view
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({ event: "page_view", page: "product" });
+  </script>
+</body>
+</html>
